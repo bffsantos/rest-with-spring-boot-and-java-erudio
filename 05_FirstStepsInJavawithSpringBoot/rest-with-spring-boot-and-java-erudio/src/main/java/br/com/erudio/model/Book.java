@@ -3,6 +3,8 @@ package br.com.erudio.model;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Book {
 	private String author;
 	
 	@Column(name = "launch_date", nullable = false, length = 6)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date launchDate;
 	
 	@Column(name = "price", nullable = false, length = 65)

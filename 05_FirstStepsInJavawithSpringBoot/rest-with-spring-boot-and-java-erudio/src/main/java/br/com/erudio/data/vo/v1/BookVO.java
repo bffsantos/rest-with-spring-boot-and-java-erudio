@@ -92,6 +92,6 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
-	
+
 	
 }
