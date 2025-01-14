@@ -23,7 +23,7 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 	
 	private Date launchDate;
 	
-	private Float price;
+	private Double price;
 	
 	private String title;
 	
@@ -55,11 +55,11 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 		this.launchDate = launchDate;
 	}
 
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

@@ -30,6 +30,8 @@
 		<dozer.version>7.0.0</dozer.version>
 		<modelmapper.version>3.1.1</modelmapper.version>
 		<springdoc.version>2.8.1</springdoc.version>
+		<testcontainers.version>1.19.8</testcontainers.version>
+		<rest-assured.version>5.5.0</rest-assured.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -94,6 +96,17 @@
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>io.rest-assured</groupId>
+		    <artifactId>rest-assured</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.testcontainers</groupId>
+		    <artifactId>mysql</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

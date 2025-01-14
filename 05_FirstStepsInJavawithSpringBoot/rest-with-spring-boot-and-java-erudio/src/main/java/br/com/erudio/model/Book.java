@@ -3,14 +3,14 @@ package br.com.erudio.model;
 import java.util.Date;
 import java.util.Objects;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "book")
@@ -22,17 +22,17 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "author", nullable = true)
+	@Column(name = "author", nullable = false, length = 180)
 	private String author;
 	
-	@Column(name = "launch_date", nullable = false, length = 6)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(name = "launch_date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date launchDate;
 	
 	@Column(name = "price", nullable = false, length = 65)
-	private Float price;
+	private Double price;
 	
-	@Column(name = "title", nullable = true)
+	@Column(name = "title", nullable = false, length = 250)
 	private String title;
 	
 	public Book() {
@@ -63,11 +63,11 @@ public class Book {
 		this.launchDate = launchDate;
 	}
 
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

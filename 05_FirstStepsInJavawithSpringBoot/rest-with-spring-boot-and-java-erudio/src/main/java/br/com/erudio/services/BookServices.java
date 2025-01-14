@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.controllers.BookController;
-import br.com.erudio.controllers.PersonController;
 import br.com.erudio.data.vo.v1.BookVO;
 import br.com.erudio.excpetions.RequiredObjectIsNullException;
 import br.com.erudio.excpetions.ResourceNotFoundException;
@@ -32,7 +31,7 @@ public class BookServices {
 		
 		var books = ErudioMapper.parseListObjects(repository.findAll(), BookVO.class);
 		
-		books.stream().forEach(b -> b.add(linkTo(methodOn(PersonController.class).findById(b.getKey())).withSelfRel()));
+		books.stream().forEach(b -> b.add(linkTo(methodOn(BookController.class).findById(b.getKey())).withSelfRel()));
 		
 		return books;
 	}	
