@@ -32,6 +32,7 @@
 		<springdoc.version>2.8.1</springdoc.version>
 		<testcontainers.version>1.19.8</testcontainers.version>
 		<rest-assured.version>5.5.0</rest-assured.version>
+		<java-jwt.version>4.4.0</java-jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,8 +48,17 @@
 			<artifactId>spring-hateoas</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
