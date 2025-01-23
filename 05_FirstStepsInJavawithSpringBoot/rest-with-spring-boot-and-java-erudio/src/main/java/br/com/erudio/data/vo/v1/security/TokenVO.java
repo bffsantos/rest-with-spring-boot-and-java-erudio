@@ -13,17 +13,17 @@ public class TokenVO implements Serializable{
 	private Date created;
 	private Date expiration;
 	private String accessToken;
-	private String refreshtoken;
+	private String refreshToken;
 	
 	public TokenVO() {}
 	
-	public TokenVO(String userName, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshtoken) {
+	public TokenVO(String userName, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshToken) {
 		this.userName = userName;
 		this.authenticated = authenticated;
 		this.created = created;
 		this.expiration = expiration;
 		this.accessToken = accessToken;
-		this.refreshtoken = refreshtoken;
+		this.refreshToken = refreshToken;
 	}
 
 	public String getUserName() {
@@ -66,17 +66,17 @@ public class TokenVO implements Serializable{
 		this.accessToken = accessToken;
 	}
 
-	public String getRefreshtoken() {
-		return refreshtoken;
+	public String getRefreshToken() {
+		return refreshToken;
 	}
 
-	public void setRefreshtoken(String refreshtoken) {
-		this.refreshtoken = refreshtoken;
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accessToken, authenticated, created, expiration, refreshtoken, userName);
+		return Objects.hash(accessToken, authenticated, created, expiration, refreshToken, userName);
 	}
 
 	@Override
@@ -90,6 +90,6 @@ public class TokenVO implements Serializable{
 		TokenVO other = (TokenVO) obj;
 		return Objects.equals(accessToken, other.accessToken) && Objects.equals(authenticated, other.authenticated)
 				&& Objects.equals(created, other.created) && Objects.equals(expiration, other.expiration)
-				&& Objects.equals(refreshtoken, other.refreshtoken) && Objects.equals(userName, other.userName);
+				&& Objects.equals(refreshToken, other.refreshToken) && Objects.equals(userName, other.userName);
 	}
 }
