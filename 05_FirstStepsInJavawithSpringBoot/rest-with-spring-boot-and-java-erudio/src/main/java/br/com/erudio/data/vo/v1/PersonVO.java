@@ -26,9 +26,7 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	
 	private String gender;
 	
-	public PersonVO() {
-		
-	}
+	public PersonVO() {}
 
 	public Long getKey() {
 		return key;

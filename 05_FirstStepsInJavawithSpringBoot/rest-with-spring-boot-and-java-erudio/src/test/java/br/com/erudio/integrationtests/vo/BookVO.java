@@ -1,4 +1,4 @@
-package br.com.erudio.data.vo.v1;
+package br.com.erudio.integrationtests.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 
-@JsonPropertyOrder({"id", "author", "launchDate", "price", "title"})
-public class BookVO extends RepresentationModel<BookVO> implements Serializable{
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class BookVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@JsonProperty("id")
-	@Mapping("id")
-	private Long key;
+	private Long id;
 	
 	private String author;
 	
@@ -29,12 +29,12 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 	
 	public BookVO() {}
 
-	public Long getKey() {
-		return key;
+	public Long getId() {
+		return id;
 	}
 
-	public void setKey(Long key) {
-		this.key = key;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getAuthor() {
@@ -73,7 +73,7 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(author, key, launchDate, price, title);
+		result = prime * result + Objects.hash(author, id, launchDate, price, title);
 		return result;
 	}
 
@@ -86,7 +86,7 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		BookVO other = (BookVO) obj;
-		return Objects.equals(author, other.author) && Objects.equals(key, other.key)
+		return Objects.equals(author, other.author) && Objects.equals(id, other.id)
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
