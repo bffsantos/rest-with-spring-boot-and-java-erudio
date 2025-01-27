@@ -137,6 +137,70 @@
 					"response": []
 				},
 				{
+					"name": "Disable a specific Person by your ID",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "https://erudio.com.br",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "http://localhost:8080",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "https://semeru.com.br",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "http://localhost:3000",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{local}}:{{port}}/api/person/v1/13",
+							"protocol": "http",
+							"host": [
+								"{{local}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"person",
+								"v1",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create new person",
 					"request": {
 						"method": "POST",
@@ -276,12 +340,14 @@
 							{
 								"key": "Accept",
 								"value": "application/yaml",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
 								"value": "application/yaml",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
@@ -352,12 +418,14 @@
 							{
 								"key": "Accept",
 								"value": "application/yaml",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
 								"value": "application/yaml",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
@@ -367,7 +435,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "---\r\nauthor: \"Steve McConnell\"\r\nlaunchDate: 1510020000000\r\nprice: 58.0\r\ntitle: \"Code complete qwdqwdqwdqw\"",
+							"raw": "{\r\n    \"author\": \"Michael C. Feathers asdasd\",\r\n    \"launchDate\": \"2017-11-29T02:00:00.000+00:00\",\r\n    \"price\": 49.0,\r\n    \"title\": \"Working effectively with legacy code\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -448,7 +516,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{local}}:{{port}}/api/book/v1/2",
+							"raw": "http://{{local}}:{{port}}/api/book/v1/16",
 							"protocol": "http",
 							"host": [
 								"{{local}}"
@@ -458,7 +526,7 @@
 								"api",
 								"book",
 								"v1",
-								"2"
+								"16"
 							]
 						}
 					},
