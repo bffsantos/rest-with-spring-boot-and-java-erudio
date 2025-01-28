@@ -1,11 +1,16 @@
 package br.com.erudio.services;
 
-import java.util.List;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.controllers.PersonController;
@@ -25,15 +30,35 @@ public class PersonServices {
 	@Autowired
 	PersonRepository repository;
 	
-	public List<PersonVO> findAll() {
+	@Autowired
+	PagedResourcesAssembler<PersonVO> assembler;
+	
+	public PagedModel<EntityModel<PersonVO>> findAll(Pageable pageable) {
 		
 		logger.info("Finding all people.");
 		
-		var persons = ErudioMapper.parseListObjects(repository.findAll(), PersonVO.class);
+		var personPage = repository.findAll(pageable);
 		
-		persons.stream().forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+		var personVosPage = personPage.map(p -> ErudioMapper.parseObject(p, PersonVO.class));
 		
-		return persons;
+		personVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+				
+		Link link = linkTo(methodOn(PersonController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+		return assembler.toModel(personVosPage, link );
+	}	
+	
+	public PagedModel<EntityModel<PersonVO>> findPersonByName(String firstName, Pageable pageable) {
+		
+		logger.info("Finding all people.");
+		
+		var personPage = repository.findPersonByName(firstName, pageable);
+		
+		var personVosPage = personPage.map(p -> ErudioMapper.parseObject(p, PersonVO.class));
+		
+		personVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+		
+		Link link = linkTo(methodOn(PersonController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+		return assembler.toModel(personVosPage, link );
 	}	
 	
 	public PersonVO findById(Long id) {
