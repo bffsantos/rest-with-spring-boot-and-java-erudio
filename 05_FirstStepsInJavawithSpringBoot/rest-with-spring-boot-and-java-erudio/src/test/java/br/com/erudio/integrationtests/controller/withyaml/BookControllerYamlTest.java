@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -25,6 +23,7 @@ import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
+import br.com.erudio.integrationtests.vo.pagedmodels.PagedModelBook;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.RestAssuredConfig;
@@ -208,20 +207,21 @@ public class BookControllerYamlTest extends AbstractIntegrationTest{
 	@Order(5)
 	public void testFindAll() throws JsonMappingException, JsonProcessingException {
 		
-		var content = 
+		var wrapper = 
 				given().spec(specification)
 				.config(RestAssuredConfig.config().encoderConfig(EncoderConfig.encoderConfig().encodeContentTypeAs(TestConfigs.CONTENT_TYPE_YML, ContentType.TEXT)))
 				.contentType(TestConfigs.CONTENT_TYPE_YML)
 				.accept(TestConfigs.CONTENT_TYPE_YML)
+				.queryParams("page", 0, "size", 5 , "direction", "asc")
 				.when()
 					.get()
 				.then()
 					.statusCode(200)
 						.extract()
 							.body()
-								.as(BookVO[].class, objectMapper);
+								.as(PagedModelBook.class, objectMapper);
 		
-		List<BookVO> books = Arrays.asList(content);
+		var books = wrapper.getContent();
 		
 		BookVO foundBookTwo = books.get(2);
 		
@@ -231,11 +231,11 @@ public class BookControllerYamlTest extends AbstractIntegrationTest{
 		assertNotNull(foundBookTwo.getPrice());
 		assertNotNull(foundBookTwo.getTitle());
 		
-		assertEquals(3, foundBookTwo.getId());
+		assertEquals(5, foundBookTwo.getId());
 		
-		assertEquals("Robert C. Martin", foundBookTwo.getAuthor());
-		assertEquals(77D, foundBookTwo.getPrice());
-		assertEquals("Clean Code", foundBookTwo.getTitle());
+		assertEquals("Steve McConnell", foundBookTwo.getAuthor());
+		assertEquals(58D, foundBookTwo.getPrice());
+		assertEquals("Code complete", foundBookTwo.getTitle());
 		assertNotNull(foundBookTwo.getLaunchDate());
 		
 		BookVO foundPersonFour = books.get(4);
@@ -246,11 +246,11 @@ public class BookControllerYamlTest extends AbstractIntegrationTest{
 		assertNotNull(foundPersonFour.getPrice());
 		assertNotNull(foundPersonFour.getTitle());
 		
-		assertEquals(5, foundPersonFour.getId());
+		assertEquals(8, foundPersonFour.getId());
 		
-		assertEquals("Steve McConnell", foundPersonFour.getAuthor());
-		assertEquals(58D, foundPersonFour.getPrice());
-		assertEquals("Code complete", foundPersonFour.getTitle());
+		assertEquals("Eric Evans", foundPersonFour.getAuthor());
+		assertEquals(92D, foundPersonFour.getPrice());
+		assertEquals("Domain Driven Design", foundPersonFour.getTitle());
 		assertNotNull(foundPersonFour.getLaunchDate());
 	}
 	

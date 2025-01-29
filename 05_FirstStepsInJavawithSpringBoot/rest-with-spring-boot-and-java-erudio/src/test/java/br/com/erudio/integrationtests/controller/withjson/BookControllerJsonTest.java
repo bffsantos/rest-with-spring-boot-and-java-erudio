@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,7 +15,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +24,7 @@ import br.com.erudio.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.erudio.integrationtests.vo.AccountCredentialsVO;
 import br.com.erudio.integrationtests.vo.BookVO;
 import br.com.erudio.integrationtests.vo.TokenVO;
+import br.com.erudio.integrationtests.vo.wrappers.WrapperBookVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -205,18 +204,20 @@ public class BookControllerJsonTest extends AbstractIntegrationTest{
 		
 		var content = 
 				given().spec(specification)
-				.contentType(TestConfigs.CONTENT_TYPE_JSON)
-				.when()
-					.get()
-				.then()
-					.statusCode(200)
-						.extract()
-							.body()
-								.asString();
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+            	.queryParams("page", 0 , "limit", 12, "direction", "asc")
+                    .when()
+                    .get()
+                .then()
+                    .statusCode(200)
+                .extract()
+                    .body()
+                    	.asString();
 		
-		List<BookVO> people = objectMapper.readValue(content, new TypeReference<List<BookVO>>() {});
+		WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);
+        var books = wrapper.getEmbedded().getBooks();
 		
-		BookVO foundBookTwo = people.get(2);
+		BookVO foundBookTwo = books.get(2);
 		
 		assertNotNull(foundBookTwo.getId());
 		assertNotNull(foundBookTwo.getAuthor());
@@ -224,14 +225,14 @@ public class BookControllerJsonTest extends AbstractIntegrationTest{
 		assertNotNull(foundBookTwo.getPrice());
 		assertNotNull(foundBookTwo.getTitle());
 		
-		assertEquals(3, foundBookTwo.getId());
+		assertEquals(5, foundBookTwo.getId());
 		
-		assertEquals("Robert C. Martin", foundBookTwo.getAuthor());
-		assertEquals(77D, foundBookTwo.getPrice());
-		assertEquals("Clean Code", foundBookTwo.getTitle());
+		assertEquals("Steve McConnell", foundBookTwo.getAuthor());
+		assertEquals(58D, foundBookTwo.getPrice());
+		assertEquals("Code complete", foundBookTwo.getTitle());
 		assertNotNull(foundBookTwo.getLaunchDate());
 		
-		BookVO foundPersonFour = people.get(4);
+		BookVO foundPersonFour = books.get(4);
 		
 		assertNotNull(foundPersonFour.getId());
 		assertNotNull(foundPersonFour.getAuthor());
@@ -239,11 +240,11 @@ public class BookControllerJsonTest extends AbstractIntegrationTest{
 		assertNotNull(foundPersonFour.getPrice());
 		assertNotNull(foundPersonFour.getTitle());
 		
-		assertEquals(5, foundPersonFour.getId());
+		assertEquals(8, foundPersonFour.getId());
 		
-		assertEquals("Steve McConnell", foundPersonFour.getAuthor());
-		assertEquals(58D, foundPersonFour.getPrice());
-		assertEquals("Code complete", foundPersonFour.getTitle());
+		assertEquals("Eric Evans", foundPersonFour.getAuthor());
+		assertEquals(92D, foundPersonFour.getPrice());
+		assertEquals("Domain Driven Design", foundPersonFour.getTitle());
 		assertNotNull(foundPersonFour.getLaunchDate());
 	}
 	
