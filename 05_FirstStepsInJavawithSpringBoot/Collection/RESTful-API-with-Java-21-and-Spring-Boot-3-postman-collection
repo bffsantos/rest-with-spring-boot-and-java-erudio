@@ -663,6 +663,176 @@
 			]
 		},
 		{
+			"name": "file/v1",
+			"item": [
+				{
+					"name": "Upload a file",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "https://erudio.com.br",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Bruno/Cursos/Java-Springboot/UploadTest/cat.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{local}}:{{port}}/api/file/v1/uploadFile",
+							"protocol": "http",
+							"host": [
+								"{{local}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"file",
+								"v1",
+								"uploadFile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload multiple files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "https://erudio.com.br",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Bruno/Cursos/Java-Springboot/UploadTest/cadeira.png",
+										"/C:/Bruno/Cursos/Java-Springboot/UploadTest/escudo_palmeiras.png",
+										"/C:/Bruno/Cursos/Java-Springboot/UploadTest/frame_house.png",
+										"/C:/Bruno/Cursos/Java-Springboot/UploadTest/macaco.png",
+										"/C:/Bruno/Cursos/Java-Springboot/UploadTest/marmore_texture.png"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{local}}:{{port}}/api/file/v1/uploadMultipleFiles",
+							"protocol": "http",
+							"host": [
+								"{{local}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"file",
+								"v1",
+								"uploadMultipleFiles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download a file",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "https://erudio.com.br",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{local}}:{{port}}/api/file/v1/downloadFile/cadeira.png",
+							"protocol": "http",
+							"host": [
+								"{{local}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"file",
+								"v1",
+								"downloadFile",
+								"cadeira.png"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "auth",
 			"item": [
 				{
