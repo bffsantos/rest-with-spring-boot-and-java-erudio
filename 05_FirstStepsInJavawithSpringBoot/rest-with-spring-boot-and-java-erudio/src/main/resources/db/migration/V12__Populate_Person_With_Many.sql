@@ -1,4 +1,4 @@
-insert into person (first_name, last_name, enabled, gender, address) values 
+INSERT INTO `person` (`first_name`, `last_name`, `enabled`, `gender`, `address`) VALUES 
  ('Jobi', 'Trask', b'0', 'Female', '8586 Forest Dale Way'),
  ('Waverley', 'Van Haeften', b'1', 'Male', '59176 Mallard Park'),
  ('Tremayne', 'Snooks', b'0', 'Male', '331 Pond Plaza'),
