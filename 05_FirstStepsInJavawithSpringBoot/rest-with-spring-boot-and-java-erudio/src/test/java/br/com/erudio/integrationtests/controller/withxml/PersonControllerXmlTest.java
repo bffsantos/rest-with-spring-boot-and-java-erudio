@@ -49,10 +49,10 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest{
 	@Test
 	@Order(0)
 	public void authorization() throws JsonMappingException, JsonProcessingException {
+		
 		AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
 		
-		var accessToken = 
-				given()
+		var accessToken = given()
 				.basePath("/auth/signin")
 					.port(TestConfigs.SERVER_PORT)
 					.contentType(TestConfigs.CONTENT_TYPE_XML)
@@ -65,16 +65,17 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest{
 							.extract()
 							.body()
 								.as(TokenVO.class)
-								.getAccessToken();
+							.getAccessToken();
 		
 		specification = new RequestSpecBuilder()
 				.addHeader(TestConfigs.HEADER_PARAM_AUTHORIZATION, "Bearer " + accessToken)
 				.setBasePath("/api/person/v1")
 				.setPort(TestConfigs.SERVER_PORT)
-				.addFilter(new RequestLoggingFilter(LogDetail.ALL))
-				.addFilter(new ResponseLoggingFilter(LogDetail.ALL))
+					.addFilter(new RequestLoggingFilter(LogDetail.ALL))
+					.addFilter(new ResponseLoggingFilter(LogDetail.ALL))
 				.build();
 	}
+	
 	
 	@Test
 	@Order(1)

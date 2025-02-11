@@ -30,28 +30,23 @@ public class AuthControllerXmlTest extends AbstractIntegrationTest{
 	
 	@Test
 	@Order(1)
-	public void testSignin() throws JsonMappingException, JsonProcessingException{
+	public void testSignin() throws JsonMappingException, JsonProcessingException {
 		
-		AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
-    
-		RequestSpecification specification = new RequestSpecBuilder()
-				.addFilter(new RequestLoggingFilter(LogDetail.ALL))
-				.addFilter(new ResponseLoggingFilter(LogDetail.ALL))
-				.build();
+		AccountCredentialsVO user = 
+				new AccountCredentialsVO("leandro", "admin123");
 		
-		tokenVO = 
-				given().spec(specification)
+		tokenVO = given()
 				.basePath("/auth/signin")
-				.port(TestConfigs.SERVER_PORT)
-				.contentType(TestConfigs.CONTENT_TYPE_XML)
-					.body(user)
-				.when()
-					.post()
-				.then()
-					.statusCode(200)
-				.extract()
-					.body()
-						.as(TokenVO.class);
+					.port(TestConfigs.SERVER_PORT)
+					.contentType(TestConfigs.CONTENT_TYPE_XML)
+				.body(user)
+					.when()
+				.post()
+					.then()
+						.statusCode(200)
+							.extract()
+							.body()
+								.as(TokenVO.class);
 		
 		assertNotNull(tokenVO.getAccessToken());
 		assertNotNull(tokenVO.getRefreshToken());
