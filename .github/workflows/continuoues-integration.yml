@@ -45,11 +45,11 @@ jobs:
 
     - name: Tag and Push Docker Image to Amazon Container Registry - ECR
       run: |
-        docker tag  ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest  ${{ secrets.IMAGE_REPO_URL }}:latest
         docker tag  ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest  ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+        docker tag  ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-erudio:latest  ${{ secrets.IMAGE_REPO_URL }}:latest
         
-        docker push ${{ secrets.IMAGE_REPO_URL }}:latest
         docker push ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+        docker push ${{ secrets.IMAGE_REPO_URL }}:latest
         
     - name: Download task definition
       run: |
@@ -67,7 +67,7 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v2
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ secrets.TASK_SERVICE_NAME }}
+        service: ${{ secrets.SERVICE_NAME }}
         cluster: ${{ secrets.CLUSTER_NAME }}
         wait-for-service-stability: true
 
